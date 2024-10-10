@@ -2,6 +2,7 @@
 
 #include <cstdint>
 #include <iostream>
+#include <regex>
 #include <memory>
 #include <variant>
 
@@ -12,7 +13,7 @@
 #include <types/ChatFullInfo.hxx>
 #include <types/ChatPhoto.hxx>
 #include <types/Message.hxx>
-#include <net/ParseResponce.hxx>
+#include <net/ParseResponse.hxx>
 #include <types/User.hxx>
 
 namespace telegram {

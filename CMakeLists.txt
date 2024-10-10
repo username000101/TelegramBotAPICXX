@@ -13,7 +13,7 @@ include_directories(thirdParty/json/include)
 
 add_subdirectory(thirdParty/json)
 
-add_library(MeetXTelegramAPI SHARED
+add_executable(MeetXTelegramAPI
     include/net/CURLInteraction.hxx
     src/net/CURLInteraction.cxx
 
@@ -30,13 +30,20 @@ add_library(MeetXTelegramAPI SHARED
     include/types/Birthdate.hxx
 
     include/types/BusinessIntro.hxx
-    include/net/ParseResponce.hxx
+    include/net/ParseResponse.hxx
     src/net/ParseBirthdate.cxx
     src/net/ParseChatFullInfo.cxx
     include/BotWrapper.hxx
     src/methods/GetChat.cxx
     src/methods/SendMessage.cxx
+    src/net/ParseMessage.cxx
+    include/types/GenericMarkup.hxx
+    include/types/InlineKeyboardMarkup.hxx
+    include/types/InlineKeyboardButton.hxx
+    src/net/MakeInlineKeyboardMarkup.cxx
+    include/net/MakeType.hxx
 )
+
 
 target_compile_definitions(MeetXTelegramAPI PUBLIC
     MEETX_TELEGRAM_API_PROVIDED_VERSION=0

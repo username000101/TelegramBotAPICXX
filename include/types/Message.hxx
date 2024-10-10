@@ -4,6 +4,7 @@
 #include <string>
 #include <memory>
 
+#include <types/Chat.hxx>
 #include <types/User.hxx>
 
 namespace telegram {
@@ -16,6 +17,9 @@ namespace telegram {
                 std::int64_t id;
                 std::int64_t threadId;
                 User::Ptr from;
+                Chat::Ptr chat;
+
+                std::string text;
 
                 std::uint64_t senderBoostCount;
                 User::Ptr senderBuisnessBot;

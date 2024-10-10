@@ -15,8 +15,6 @@
 
 namespace telegram {
     namespace internal {
-        extern void parseResponce(const std::string& responce);
-
         bot::types::Birthdate parseBirthdate(const std::string& birthdateJSON);
         bot::types::BusinessIntro parseBusinessIntro(const std::string& businessIntroJSON);
         bot::types::ChatPhoto parseChatPhoto(const std::string& chatPhotoJSON);
@@ -24,6 +22,7 @@ namespace telegram {
         bot::types::ChatFullInfo parseChatFullInfo(const std::string& chatFullInfoJSON);
         bot::types::Message parseMessage(const std::string& messageJSON);
         bot::types::User parseUser(const std::string& userJSON);
+
 
     }
 }
