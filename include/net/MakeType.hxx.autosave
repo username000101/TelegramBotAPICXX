@@ -9,5 +9,6 @@ namespace telegram {
     namespace internal {
         std::string makeInlineKeyboardMarkup(bot::types::InlineKeyboardMarkup::Ptr keyboard);
         std::string makeMessage(bot::types::Message::Ptr message);
+        std:
     }
 }

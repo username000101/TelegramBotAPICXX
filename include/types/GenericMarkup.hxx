@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 namespace telegram {
     namespace bot {
         namespace types {
@@ -13,6 +15,8 @@ namespace telegram {
 
             class GenericMarkup {
             public:
+                typedef std::shared_ptr<GenericMarkup> Ptr;
+
                 virtual ~GenericMarkup() {};
 
                 virtual const MarkupType getType() const { return MarkupType::GENERIC_REPLY; };

@@ -42,8 +42,22 @@ add_executable(MeetXTelegramAPI
     include/types/InlineKeyboardButton.hxx
     src/net/MakeInlineKeyboardMarkup.cxx
     include/net/MakeType.hxx
+    include/types/ChatLocation.hxx
+    include/types/Location.hxx
+    include/types/GenericReactionType.hxx
+    include/types/ReactionTypeEmoji.hxx
+    include/types/ChatPermissions.hxx
+    include/types/BusinessLocation.hxx
+    include/types/BusinessOpeningHoursInterval.hxx
+    include/types/BusinessOpeningHours.hxx
 )
 
+if (DEFINED logging OR DEFINED LOGGING)
+    message("Logging for MeetxTelegramAPI enabled")
+    target_compile_definitions(MeetXTelegramAPI PUBLIC
+        MEETX_TELEGRAM_API_ENABLE_LOGGING
+    )
+endif()
 
 target_compile_definitions(MeetXTelegramAPI PUBLIC
     MEETX_TELEGRAM_API_PROVIDED_VERSION=0

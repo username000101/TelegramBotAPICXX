@@ -9,7 +9,7 @@ telegram::bot::types::Birthdate telegram::internal::parseBirthdate(const std::st
 #endif
         return bd;
     }
-    bd.day = j["day"].get<std::uint8_t>();
+    bd.day = j["day"].get<std::uint16_t>();
 
     if (!j.contains("month")) {
         bd.month = 0;
@@ -18,7 +18,7 @@ telegram::bot::types::Birthdate telegram::internal::parseBirthdate(const std::st
 #endif
         return bd;
     }
-    bd.month = j["month"].get<std::uint8_t>();
+    bd.month = j["month"].get<std::uint16_t>();
 
     if (!j.contains("year")) {
 #ifdef MEETX_TELEGRAM_API_ENABLE_LOGGING

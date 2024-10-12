@@ -43,5 +43,10 @@ std::string telegram::internal::TelegramBotAPICURLInteractionLibrary::makeReques
     return this->makeRequest(token, requestName, args, writeFunction);
 }
 
+#include <BotWrapper.hxx>
+
 int main() {
+    telegram::bot::BotWrapper bot("7205719382:AAFNGy3VAiG0Vsx5il_dCIILxDK1DwSBhOI");
+    auto chatInfo = bot.getChat(6627530378);
+    std::cout << chatInfo->firstName << "\n\n" << chatInfo->username << "\n\n" << chatInfo->bio << "\n\n" << chatInfo->birthdate->day << "." << chatInfo->birthdate->month << std::endl;
 }

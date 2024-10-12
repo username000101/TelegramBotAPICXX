@@ -1,6 +1,5 @@
 #pragma once
 
-#include <iostream>
 #include <memory>
 #include <vector>
 
@@ -12,7 +11,7 @@
 namespace telegram {
     namespace bot {
         namespace types {
-            class InlineKeyboardMarkup : public bot::types::GenericMarkup {
+            class InlineKeyboardMarkup : public GenericMarkup {
             public:
                 typedef std::shared_ptr<bot::types::GenericMarkup> Ptr;
 
