@@ -42,16 +42,3 @@ std::string telegram::internal::TelegramBotAPICURLInteractionLibrary::makeReques
                                                                                   std::size_t(*writeFunction)(void*, std::size_t, size_t, std::string*)) {
     return this->makeRequest(token, requestName, args, writeFunction);
 }
-
-#include <BotWrapper.hxx>
-
-int main() {
-    /*telegram::bot::BotWrapper bot("7205719382:AAFNGy3VAiG0Vsx5il_dCIILxDK1DwSBhOI");
-    auto rp = std::make_shared<telegram::bot::types::ReplyParameters>();
-    rp->chatId = 6627530378;
-    rp->messageId = 169;
-    bot.sendMessage(6627530378, "What? The reply is here! But now from the TelegramBotAPICXX", rp);*/
-    telegram::bot::events::EventsManager events;
-    events.onAnyMessage(1, [](telegram::bot::types::Message::Ptr message) {});
-
-}
