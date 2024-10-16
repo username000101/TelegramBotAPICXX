@@ -5,6 +5,7 @@
 #include <memory>
 
 #include <types/Chat.hxx>
+#include <types/ReplyParameters.hxx>
 #include <types/User.hxx>
 
 namespace telegram {
@@ -18,6 +19,7 @@ namespace telegram {
                 std::int64_t threadId;
                 User::Ptr from;
                 Chat::Ptr chat;
+                ReplyParameters::Ptr replyParameters;
 
                 std::string text;
 

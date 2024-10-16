@@ -21,7 +21,6 @@ namespace telegram {
             public:
                 typedef std::shared_ptr<ChatFullInfo> Ptr;
 
-                enum ChatType { PRIVATE, GROUP, SUPERGROUP, CHANNEL, };
 
                 std::int64_t linkedChatId;
                 std::int64_t id; 
@@ -31,7 +30,7 @@ namespace telegram {
                 std::uint32_t profileAccentColorId;
                 std::uint32_t accentColorId;
                 std::uint16_t maxReactionsCount;
-                ChatType type;
+                std::string type;
                 std::string title;
                 std::string username;
                 std::string firstName;

@@ -10,6 +10,7 @@
 #include <types/Chat.hxx>
 #include <types/ChatFullInfo.hxx>
 #include <types/ChatPhoto.hxx>
+#include <types/ReplyParameters.hxx>
 #include <types/Message.hxx>
 #include <types/User.hxx>
 
@@ -22,7 +23,5 @@ namespace telegram {
         bot::types::ChatFullInfo parseChatFullInfo(const std::string& chatFullInfoJSON);
         bot::types::Message parseMessage(const std::string& messageJSON);
         bot::types::User parseUser(const std::string& userJSON);
-
-
     }
 }

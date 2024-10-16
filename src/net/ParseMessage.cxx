@@ -84,12 +84,11 @@ telegram::bot::types::Message telegram::internal::parseMessage(const std::string
     }
     chat.username = chatField["username"].get<std::string>();
 
-    /*if (!chatField.contains("type")) {
+    if (!chatField.contains("type")) {
         std::cout << "TelegramBotAPI: Error: failed to parse 'Message': response::chat does not contains 'type'" << std::endl;
         return msg;
     }
-    extern bot::types::Chat::ChatType getChatType(const std::string& type);
-    chat.type = getChatType(chatField["type"].get<std::string>());*/
+    chat.type = chatField["type"].get<std::string>();
 
     if (!j.contains("date")) {
         std::cout << "TelegramBotAPI: Error: failed to parse 'Message': response does not contains 'date'" << std::endl;

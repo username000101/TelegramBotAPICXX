@@ -11,10 +11,9 @@ namespace telegram {
             public:
                 typedef std::shared_ptr<Chat> Ptr;
 
-                enum class ChatType { PRIAVATE, GROUP, SUPERGROUP, CHANNEL };
 
                 std::int64_t id;
-                ChatType type;
+                std::string type;
                 std::string title;
                 std::string username;
                 std::string firstName;

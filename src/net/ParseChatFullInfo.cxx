@@ -1,22 +1,5 @@
 #include <net/ParseResponse.hxx>
 
-telegram::bot::types::ChatFullInfo::ChatType getChatType(const std::string& type) {
-    if (type == "private")
-        return telegram::bot::types::ChatFullInfo::PRIVATE;
-    else if (type == "group")
-        return telegram::bot::types::ChatFullInfo::GROUP;
-    else if (type == "supergroup")
-        return telegram::bot::types::ChatFullInfo::SUPERGROUP;
-    else if (type == "channel")
-        return telegram::bot::types::ChatFullInfo::CHANNEL;
-    else {
-#ifdef MEETX_TELEGRAM_API_ENABLE_LOGGING
-        std::cout << "TelegramBotAPI: " << __FILE__ << ":" << __LINE__ << ": Error: Failed to get chat type: invalid input(\"" << type << "\")" << std::endl;
-#endif
-        return telegram::bot::types::ChatFullInfo::PRIVATE;
-    }
-}
-
 telegram::bot::types::ChatFullInfo telegram::internal::parseChatFullInfo(const std::string& chatFullInfoJSON) {
     nlohmann::json j = nlohmann::json::parse(chatFullInfoJSON);
     bot::types::ChatFullInfo cfi;
@@ -84,7 +67,7 @@ telegram::bot::types::ChatFullInfo telegram::internal::parseChatFullInfo(const s
 #endif
         return cfi;
     }
-    cfi.type = getChatType(j["type"].get<std::string>());
+    cfi.type = j["type"].get<std::string>();
 
     if (!j.contains("active_usernames")) {
 #ifdef MEETX_TELEGRAM_API_ENABLE_LOGGING

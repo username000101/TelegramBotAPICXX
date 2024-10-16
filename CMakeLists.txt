@@ -50,6 +50,15 @@ add_executable(MeetXTelegramAPI
     include/types/BusinessLocation.hxx
     include/types/BusinessOpeningHoursInterval.hxx
     include/types/BusinessOpeningHours.hxx
+    include/types/ReplyParameters.hxx
+    src/net/MakeReplyParameters.cxx
+    src/methods/GetUpdates.cxx
+    include/events/EventsBroadcast.hxx
+    src/events/OnAnyMessage.cxx
+    src/events/OnCommandMessage.cxx
+    include/Logger.hxx
+    src/events/OnEditedMessage.cxx
+
 )
 
 if (DEFINED logging OR DEFINED LOGGING)
