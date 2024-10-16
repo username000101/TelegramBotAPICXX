@@ -13,7 +13,7 @@ include_directories(thirdParty/json/include)
 
 add_subdirectory(thirdParty/json)
 
-add_executable(MeetXTelegramAPI
+add_library(MeetXTelegramAPI SHARED
     include/net/CURLInteraction.hxx
     src/net/CURLInteraction.cxx
 
