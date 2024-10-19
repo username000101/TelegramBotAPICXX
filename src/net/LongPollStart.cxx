@@ -18,6 +18,5 @@ void telegram::bot::LongPoll::longPollStart() {
         return;
     }
     auto lastUpdate = j["result"].back();
-    log("Last update id is: ", lastUpdate["update_id"].get<std::uint64_t>());
     this->lastUpdateId_ = lastUpdate["update_id"].get<std::uint64_t>() + 1;
 }

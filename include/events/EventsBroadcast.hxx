@@ -4,8 +4,11 @@
 #include <unordered_map>
 #include <variant>
 
-#include <types/Message.hxx>
+#include <nlohmann/json.hpp>
 
+
+#include <net/ParseResponse.hxx>
+#include <types/Message.hxx>
 #include <Logger.hxx>
 
 using telegram::internal::logger::log;

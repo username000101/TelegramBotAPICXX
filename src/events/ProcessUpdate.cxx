@@ -5,4 +5,28 @@ void telegram::bot::events::EventsManager::processUpdate(const std::string& json
         log(__FILE__, ":", __FUNCTION__, ":", __LINE__, ": Error: Failed to process update: json is empty");
         return;
     }
+
+    nlohmann::json j = nlohmann::json::parse(json);
+    if (j.contains("message")) {
+        auto message = std::make_shared<types::Message>(internal::parseMessage(j["message"]));
+        if (message->text.starts_with('/')) {
+            for (auto& handler : this->commandMessageHandlers_) {
+                if (message->text == handler.second.first) {
+                    handler.second.second(message);
+                    return;
+                }
+            }
+            log(__FILE__, ":", __FUNCTION__, ":", __LINE__, ": Warning: The handler for command '", message->text, "' does not exists");
+            return;
+        } else {
+            for (auto& handler : this->anyMessageHandlers_) {
+                handler.second(message);
+                return;
+            }
+        }
+    } else {
+        log(__FILE__, ":", __FUNCTION__, ":", __LINE__, ": Warning: TelegramBotAPICXX does not support handle the non-message updates yet");
+        return;
+    }
+
 }
