@@ -3,6 +3,7 @@
 telegram::bot::types::Message::Ptr telegram::bot::BotWrapper::sendMessage(std::variant<std::string, std::int64_t> identificator, const std::string& text, bot::types::ReplyParameters::Ptr reply_parameters) {
     std::regex pattern(" ");
     std::string strBuf = std::regex_replace(text, pattern, "%20");
+    nlohmann::json jresp;
 
     if (std::holds_alternative<std::string>(identificator)) {
         std::string response;
@@ -12,11 +13,19 @@ telegram::bot::types::Message::Ptr telegram::bot::BotWrapper::sendMessage(std::v
         } else {
             response = this->curlInterface_->makeRequest(this->token_, "sendMessage", {{"chat_id", std::get<std::string>(identificator)}, {"text", strBuf}}, nullptr);
         }
+
         if (response.empty()) {
             log(__FILE__, ":", __FUNCTION__, ":", __LINE__, ": Error: Failed to prepare request 'sendMessage': response is empty");
             return nullptr;
-        } else
-            return std::make_shared<bot::types::Message>(internal::parseMessage(response));
+        }
+
+        jresp = nlohmann::json::parse(response);
+        if (!jresp["ok"].get<bool>()) {
+            log(__FILE__, ":", __FUNCTION__, ":", __LINE__, ": Error: Failed to process request 'sendMessage': ok != true");
+            return nullptr;
+        }
+
+        return std::make_shared<bot::types::Message>(internal::parseMessage(response));
     } else {
         std::string response;
 
@@ -25,10 +34,18 @@ telegram::bot::types::Message::Ptr telegram::bot::BotWrapper::sendMessage(std::v
         } else {
             response = this->curlInterface_->makeRequest(this->token_, "sendMessage", {{"chat_id", std::to_string(std::get<std::int64_t>(identificator))}, {"text", strBuf}, {"reply_parameters", internal::makeReplyParameters(reply_parameters)}}, nullptr);
         }
+
         if (response.empty()) {
             log(__FILE__, ":", __FUNCTION__, ":", __LINE__, ": Error: Failed to prepare request 'sendMessage': response is empty");
             return nullptr;
         }
-        return std::make_shared<bot::types::Message>(internal::parseMessage(response));
+        jresp = nlohmann::json::parse(response);
+        if (!jresp["ok"].get<bool>()) {
+            log(__FILE__, ":", __FUNCTION__, ":", __LINE__, ": Error: Failed to process request 'sendMessage': ok != true");
+            return nullptr;
+        }
+
+        jresp = nlohmann::json::parse(response);
+        return std::make_shared<bot::types::Message>(internal::parseMessage(jresp["result"].dump()));
     }
 }
