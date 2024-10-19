@@ -10,7 +10,7 @@ void telegram::bot::events::EventsManager::processUpdate(const std::string& json
     j = j["result"];
     for (auto& resultField : j) {
         if (resultField.contains("message")) {
-            auto message = std::make_shared<types::Message>(internal::parseMessage(resultField["message"]));
+            auto message = std::make_shared<types::Message>(internal::parseMessage(resultField["message"].dump()));
             if (message->text.starts_with('/')) {
                 for (auto& handler : this->commandMessageHandlers_) {
                     if (message->text == handler.second.first) {
