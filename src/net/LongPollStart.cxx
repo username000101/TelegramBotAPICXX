@@ -7,4 +7,5 @@ void telegram::bot::LongPoll::longPollStart() {
         return;
     }
     this->bot_.eventsManager_.processUpdate(response);
+    this->lastUpdateId_ += this->limit_;
 }

@@ -16,19 +16,12 @@ add_subdirectory(thirdParty/json)
 add_library(MeetXTelegramAPI SHARED
     include/net/CURLInteraction.hxx
     src/net/CURLInteraction.cxx
-
     include/types/ChatPhoto.hxx
-
     include/types/User.hxx
-
     include/types/Message.hxx
-
     include/types/Chat.hxx
-
     include/types/ChatFullInfo.hxx
-
     include/types/Birthdate.hxx
-
     include/types/BusinessIntro.hxx
     include/net/ParseResponse.hxx
     src/net/ParseBirthdate.cxx
@@ -52,7 +45,6 @@ add_library(MeetXTelegramAPI SHARED
     include/types/BusinessOpeningHours.hxx
     include/types/ReplyParameters.hxx
     src/net/MakeReplyParameters.cxx
-    src/methods/GetUpdates.cxx
     include/events/EventsBroadcast.hxx
     src/events/OnAnyMessage.cxx
     src/events/OnCommandMessage.cxx
