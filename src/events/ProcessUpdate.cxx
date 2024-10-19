@@ -7,6 +7,11 @@ void telegram::bot::events::EventsManager::processUpdate(const std::string& json
     }
 
     nlohmann::json j = nlohmann::json::parse(json);
+    if (!j["ok"].get<bool>()) {
+        log(__FILE__, ":", __FUNCTION__, ":", __LINE__, ": Error: Failed to process update: ok != true");
+        return;
+    }
+
     j = j["result"];
     for (auto& resultField : j) {
         if (resultField.contains("message")) {

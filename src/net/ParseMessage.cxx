@@ -6,18 +6,6 @@ telegram::bot::types::Message telegram::internal::parseMessage(const std::string
     bot::types::Chat chat;
     bot::types::User user;
 
-    if (!j.contains("ok")) {
-        log(__FILE__,":", __FUNCTION__, ":", __LINE__, ": Error: Failed to parse 'Message': response does not contains 'ok'");
-        return msg;
-    }
-    if (!j["ok"].get<bool>()) {
-        auto errorDescription = j["description"].get<std::string>();
-        log(__FILE__, ":", __FUNCTION__, ":", __LINE__, ": Error: Failed to parse 'Message': returned error: ", errorDescription);
-        return msg;
-    }
-
-    j = j["result"];
-
     if (!j.contains("message_id")) {
         log(__FILE__, ":", __LINE__, ": Error: Failed to parse 'Message': response does not contains 'message_id'");
         return msg;
