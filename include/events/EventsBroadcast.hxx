@@ -1,6 +1,5 @@
 #pragma once
 
-#include <iostream>
 #include <functional>
 #include <unordered_map>
 #include <variant>
@@ -25,21 +24,23 @@ namespace telegram {
                 void onEditedMessage(std::uint16_t handlerId, MessageListener editedMessageHandler);
 
                 void processUpdate(const std::string& jsonResponse);
-            private:
+            protected:
                 enum class NotifyModificator { ANY, COMMAND, EDIT, CALLBACKQ, INLINEQ, SHIPPINGQ, CMEMBER, CJOINGREQ, CBOOST, CBOOSTRM, };
 
 
-                void notify(NotifyModificator whoNotify, std::variant<MessageListener, int> notify);
+                void notify(NotifyModificator notifyType, std::variant<MessageListener> notifyObject, std::variant<types::Message::Ptr> notifyData);
 
-                void notify__any(MessageListener message);
-                void notify__command(MessageListener message);
-                void notify__edit(MessageListener message);
+                void notify__any(std::variant<types::Message::Ptr> notifyData);
+                void notify__command(types::Message::Ptr notifyData);
+                void notify__edit(types::Message::Ptr notifyData);
 
                 [[deprecated("Not implemented now!")]] void notify__callbackq(...);
 
                 std::unordered_map<std::uint16_t, MessageListener> anyMessageHandlers_;
                 std::unordered_map<std::uint16_t, std::pair<std::string, MessageListener>> commandMessageHandlers_;
                 std::unordered_map<std::uint16_t, MessageListener> editedMessageHandlers_;
+
+                friend class BotWrapper;
             };
         }
     }
