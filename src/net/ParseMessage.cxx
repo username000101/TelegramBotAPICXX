@@ -3,7 +3,7 @@
 telegram::bot::types::Message telegram::internal::parseMessage(const std::string& messageJSON) {
     nlohmann::json j = nlohmann::json::parse(messageJSON);
     bot::types::Message msg;
-    bot::types::Chat chat;
+    bot::types::ChatFullInfo chat;
     bot::types::User user;
 
     if (!j.contains("message_id")) {

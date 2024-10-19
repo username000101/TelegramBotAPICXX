@@ -3,17 +3,6 @@
 telegram::bot::types::ChatFullInfo telegram::internal::parseChatFullInfo(const std::string& chatFullInfoJSON) {
     nlohmann::json j = nlohmann::json::parse(chatFullInfoJSON);
     bot::types::ChatFullInfo cfi;
-    if (!j.contains("ok")) {
-        log(__FILE__, ":", __FUNCTION__, ":", __LINE__, ": Error: Failed to parse 'ChatFullInfo': response does not contains 'ok'");
-        return cfi;
-    }
-    if (!j["ok"].get<bool>()) {
-        auto errorDescription = j["description"].get<std::string>();
-        log(__FILE__, ":", __FUNCTION__, ":", __LINE__, ": Error: Failed to parse 'ChatFullInfo': returned error: " , errorDescription);
-        return cfi;
-    }
-
-    j = j["result"];
 
     if (!j.contains("id")) {
         log(__FILE__, ":", __FUNCTION__, ":", __LINE__, ": Error: Failed to parse 'ChatFullInfo': response does not contains 'id'");

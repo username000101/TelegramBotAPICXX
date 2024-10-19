@@ -17,7 +17,6 @@ namespace telegram {
                 std::string firstName;
                 std::string lastName;
                 std::string username;
-                std::string bio;
                 std::string languageCode;
                 bool isPremium;
                 bool addedToAttachmentMenu;
