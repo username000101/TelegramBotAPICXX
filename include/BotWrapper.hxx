@@ -36,8 +36,10 @@ namespace telegram {
             }
 
             const std::string& getToken() { return this->token_; }
+
             types::ChatFullInfo::Ptr getChat(std::variant<std::string, std::int64_t> identificator);
-            types::Message::Ptr sendMessage(std::variant<std::string, std::int64_t> identificator, const std::string& text, bot::types::ReplyParameters::Ptr reply_parameters = nullptr);
+            types::Message::Ptr sendMessage(std::variant<std::string, std::int64_t> identificator, const std::string& text, bot::types::ReplyParameters::Ptr replyParameters = nullptr);
+            types::Message::Ptr editMessageText(std::variant<std::string, std::int64_t> identificator, std::int64_t messageId, const std::string& newText, types::ReplyParameters::Ptr replyParameters = nullptr);
 
             events::EventsManager& getEvents() { return this->eventsManager_; }
         private:

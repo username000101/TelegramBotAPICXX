@@ -15,7 +15,7 @@ telegram::bot::types::Message::Ptr telegram::bot::BotWrapper::sendMessage(std::v
         }
 
         if (response.empty()) {
-            log(__FILE__, ":", __FUNCTION__, ":", __LINE__, ": Error: Failed to prepare request 'sendMessage': response is empty");
+            log(__FILE__, ":", __FUNCTION__, ":", __LINE__, ": Error: Failed to process request 'sendMessage': response is empty");
             return nullptr;
         }
 
@@ -36,16 +36,16 @@ telegram::bot::types::Message::Ptr telegram::bot::BotWrapper::sendMessage(std::v
         }
 
         if (response.empty()) {
-            log(__FILE__, ":", __FUNCTION__, ":", __LINE__, ": Error: Failed to prepare request 'sendMessage': response is empty");
+            log(__FILE__, ":", __FUNCTION__, ":", __LINE__, ": Error: Failed to process request 'sendMessage': response is empty");
             return nullptr;
         }
+
         jresp = nlohmann::json::parse(response);
         if (!jresp["ok"].get<bool>()) {
             log(__FILE__, ":", __FUNCTION__, ":", __LINE__, ": Error: Failed to process request 'sendMessage': ok != true");
             return nullptr;
         }
 
-        jresp = nlohmann::json::parse(response);
         return std::make_shared<bot::types::Message>(internal::parseMessage(jresp["result"].dump()));
     }
 }

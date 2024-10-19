@@ -14,7 +14,7 @@ void telegram::bot::events::EventsManager::processUpdate(const std::string& json
 
     j = j["result"];
     for (auto& resultField : j) {
-        if (resultField.contains("message")) {
+        if (resultField.contains("message")) /* New message*/ {
             auto message = std::make_shared<types::Message>(internal::parseMessage(resultField["message"].dump()));
             if (message->text.starts_with('/')) /* Command */ {
                 for (auto& handler : this->commandMessageHandlers_) {
@@ -26,12 +26,25 @@ void telegram::bot::events::EventsManager::processUpdate(const std::string& json
                 log(__FILE__, ":", __FUNCTION__, ":", __LINE__, ": Warning: The handler for command '", message->text, "' does not exists");
                 return;
             } else /* Any message */ {
-                this->anyMessageHandler_(message);
+                if (this->anyMessageHandler_)
+                    this->anyMessageHandler_(message);
+                return;
             }
-        } else {
-            log(__FILE__, ":", __FUNCTION__, ":", __LINE__, ": Warning: TelegramBotAPICXX does not support handle the non-message updates yet");
+        } else if (resultField.contains("edited_message")) /* Edited message */ {
+            auto message = std::make_shared<types::Message>(internal::parseMessage(resultField["edited_message"].dump()));
+            if (this->editedMessageHandler_)
+                this->editedMessageHandler_(message);
+
+            log(__FILE__, ":", __FUNCTION__, ":", __LINE__, ": Warning: TelegramBotAPICXX does not support handle the edited_message updates yet");
+            return;
+        } else if (resultField.contains("channel_post")) /* Channel post */ {
+            log(__FILE__, ":", __FUNCTION__, ":", __LINE__, ": Warning: TelegramBotAPICXX does not support handle the channel_post updates yet");
+            return;
+        } else if (resultField.contains("edited_channel_post")) /* Edited channel post */ {
+            log(__FILE__, ":", __FUNCTION__, ":", __LINE__, ": Warning: TelegramBotAPICXX does not support handle the edited_channel_post updates yet");
             return;
         }
+        // ...
     }
 
 }

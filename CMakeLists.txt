@@ -53,6 +53,7 @@ add_library(MeetXTelegramAPI SHARED
     src/events/ProcessUpdate.cxx
     include/net/LongPoll.hxx
     src/net/LongPollStart.cxx
+    src/methods/EditMessageText.cxx
 
 )
 
