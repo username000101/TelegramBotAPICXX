@@ -2,6 +2,8 @@
 
 #include <cstdint>
 
+#include <nlohmann/json.hpp>
+
 #include <BotWrapper.hxx>
 #include <net/CURLInteraction.hxx>
 #include <Logger.hxx>
