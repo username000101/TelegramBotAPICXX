@@ -32,10 +32,8 @@ namespace telegram {
 
             template <typename... Args> void log(Args... arguments) {
 #ifdef MEETX_TELEGRAM_API_ENABLE_LOGGING
-                std::ostringstream stream;
-                stream << "TelegramBotAPI: ";
-                (stream << ... << arguments);
-                std::cout << stream.str() << std::endl;
+                std::cout << "TelegramBotAPI: ";
+                (std::cout << ... << arguments) << std::endl;
 #endif
             }
         }

@@ -29,7 +29,7 @@ namespace telegram {
         public:
             BotWrapper(const std::string& token) : curlInterface_(std::make_shared<internal::TelegramBotAPICURLInteractionLibrary>()) {
                 if (token.empty()) {
-                    log(__FILE__, ":", __LINE__, ": Error: Failed to make BotWrapper object: token must be non empty");
+                    log(__FILE__, ":", __FUNCTION__, ":", __LINE__, ": Error: Failed to make BotWrapper object: token must be non empty");
                 } else {
                     this->token_ = token;
                 }

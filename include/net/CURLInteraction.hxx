@@ -35,14 +35,14 @@ class TelegramBotAPICURLInteractionLibrary {
                 this->_defaultUrl = defaultUrl;
                 this->_curl = curl_easy_init();
                 if (!this->_curl)
-                    log(__FILE__, ":", __LINE__, ": Error: Failed to init CURL");
+                    log(__FILE__, ":", __FUNCTION__, ":", __LINE__, ": Error: Failed to init CURL");
                 else
-                    log(__FILE__, ":", __LINE__, ": Info: The CURL object was created");
+                    log(__FILE__, ":", __FUNCTION__, ":", __LINE__, ": Info: The CURL object was created");
             }
 
             ~TelegramBotAPICURLInteractionLibrary() {
                 curl_easy_cleanup(this->_curl);
-                log(__FILE__, ":", __LINE__, ": Info: The CURL object was deleted");
+                log(__FILE__, ":", __FUNCTION__, ":", __LINE__, ": Info: The CURL object was deleted");
             }
 
             std::string makeRequest(const std::string& token, const std::string& rquestName, std::vector<std::pair<std::string, std::string>>& args, std::size_t(*writeFunction)(void*, std::size_t, size_t, std::string*));

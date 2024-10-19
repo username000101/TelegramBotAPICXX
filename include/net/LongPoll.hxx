@@ -18,7 +18,7 @@ namespace telegram {
         public:
             LongPoll(BotWrapper& bot, std::uint64_t initialOffset = 0, double timeout = 10.0, unsigned short limit = 100) : bot_(bot), lastUpdateId_(initialOffset), timeout_(timeout), limit_(limit) {
                 if (timeout == 0.0)
-                    log(__FILE__, ":", __LINE__, ": Warning: use the zero timeout don't recommended(use it only for testing)");
+                    log(__FILE__, ":", __FUNCTION__, ":", __LINE__, ": Warning: use the zero timeout don't recommended(use it only for testing)");
             }
 
             void longPollStart();

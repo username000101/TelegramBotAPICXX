@@ -11,8 +11,13 @@
 #include <types/ChatFullInfo.hxx>
 #include <types/ChatPhoto.hxx>
 #include <types/ReplyParameters.hxx>
+#include <Logger.hxx>
 #include <types/Message.hxx>
 #include <types/User.hxx>
+
+using telegram::internal::logger::log;
+using telegram::internal::logger::backgroundColors;
+using telegram::internal::logger::foregroundColors;
 
 namespace telegram {
     namespace internal {

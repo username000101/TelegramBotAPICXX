@@ -4,26 +4,20 @@ telegram::bot::types::Birthdate telegram::internal::parseBirthdate(const std::st
     nlohmann::json j = nlohmann::json::parse(birthdateJSON);
     bot::types::Birthdate bd;
     if (!j.contains("day")) {
-#ifdef MEETX_TELEGRAM_API_ENABLE_LOGGING
-        std::cout << "TelegramBotAPI: " << __FILE__ << ":" << __LINE__ << ": Error: Failed to parse birthdate: json response does not contains 'day'" << std::endl;
-#endif
+        log(__FILE__, ":", __FUNCTION__, ":", __LINE__, ": Error: Failed to parse birthdate: json response does not contains 'day'");
         return bd;
     }
     bd.day = j["day"].get<std::uint16_t>();
 
     if (!j.contains("month")) {
         bd.month = 0;
-#ifdef MEETX_TELEGRAM_API_ENABLE_LOGGING
-        std::cout << "TelegramBotAPI: " << __FILE__ << ":" << __LINE__ << ": Error: Failed to parse birthdate: json response does not contains 'month'" << std::endl;
-#endif
+        log(__FILE__, ":", __FUNCTION__, ":", __LINE__, ": Error: Failed to parse birthdate: json response does not contains 'month'");
         return bd;
     }
     bd.month = j["month"].get<std::uint16_t>();
 
     if (!j.contains("year")) {
-#ifdef MEETX_TELEGRAM_API_ENABLE_LOGGING
-        std::cout << "TelegramBotAPI: " << __FILE__ << ":" << __LINE__ << ": Warning: Failed to parse birthdate: json response does not contains 'year' ==> !! this is not an error !! <==" << std::endl;
-#endif
+        log(__FILE__, ":", __FUNCTION__, ":", __LINE__, ": Warning: Failed to parse birthdate: json response does not contains 'year' ==> !! this is not an error !! <==");
         bd.year = 0;
         return bd;
     }

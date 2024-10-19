@@ -2,9 +2,7 @@
 
 std::string telegram::internal::makeReplyParameters(bot::types::ReplyParameters::Ptr rp) {
     if (!rp) {
-#ifdef MEETX_TELEGRAM_API_ENABLE_LOGGING
-        std::cout << "TelegramBotAPI: " << __FILE__ << ":" << __LINE__ << ": Error: Failed to make ReplyParameters: rp ptr is invalid" << std::endl;
-#endif
+        log(__FILE__, ":", __FUNCTION__, ":", __LINE__, ": Error: Failed to make ReplyParameters: rp ptr is invalid");
         return "";
     }
 

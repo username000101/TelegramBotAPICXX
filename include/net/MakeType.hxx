@@ -1,12 +1,15 @@
 #pragma once
 
-#include <iostream>
-
 #include <nlohmann/json.hpp>
 
 #include <types/InlineKeyboardMarkup.hxx>
-#include <types/Message.hxx>
 #include <types/ReplyParameters.hxx>
+#include <Logger.hxx>
+#include <types/Message.hxx>
+
+using telegram::internal::logger::log;
+using telegram::internal::logger::backgroundColors;
+using telegram::internal::logger::foregroundColors;
 
 namespace telegram {
     namespace internal {
