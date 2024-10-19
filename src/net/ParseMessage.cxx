@@ -3,11 +3,11 @@
 telegram::bot::types::Message telegram::internal::parseMessage(const std::string& messageJSON) {
     nlohmann::json j = nlohmann::json::parse(messageJSON);
     bot::types::Message msg;
-    bot::types::ChatFullInfo chat;
+    bot::types::Chat chat;
     bot::types::User user;
 
     if (!j.contains("message_id")) {
-        log(__FILE__, ":", __LINE__, ": Error: Failed to parse 'Message': response does not contains 'message_id'");
+        log(__FILE__, ":", __FUNCTION__, ":", __LINE__, ": Error: Failed to parse 'Message': response does not contains 'message_id'");
         return msg;
     }
     msg.id = j["message_id"].get<std::uint64_t>();
