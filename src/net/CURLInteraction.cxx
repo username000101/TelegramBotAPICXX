@@ -20,8 +20,9 @@ std::string telegram::internal::TelegramBotAPICURLInteractionLibrary::makeReques
 
     if (!args.empty()) {
         url += "?";
+        url += "&";
         for (auto& i : args) {
-            url+= i.first + "=" + i.second + "&";
+            url+= i.first + "=" + i.second;
         }
     }
     curl_easy_setopt(this->_curl, CURLOPT_URL, url.c_str());
