@@ -13,6 +13,10 @@ void telegram::bot::LongPoll::longPollStart() {
         log(__FILE__, ":", __LINE__, ": Error: Failed to get updates: TelegramBotAPI error");
         return;
     }
+    if (j["result"].empty()) {
+        log(__FILE__, ":", __LINE__, ": Info: Not found updates yet");
+        return;
+    }
     auto lastUpdate = j["result"].back();
     log("Last update id is: ", lastUpdate["update_id"].get<std::uint64_t>());
     this->lastUpdateId_ = lastUpdate["update_id"].get<std::uint64_t>() + 1;
