@@ -7,6 +7,7 @@ void telegram::bot::events::EventsManager::processUpdate(const std::string& json
     }
 
     nlohmann::json j = nlohmann::json::parse(json);
+    j = j["result"];
     if (j.contains("message")) {
         auto message = std::make_shared<types::Message>(internal::parseMessage(j["message"]));
         if (message->text.starts_with('/')) {
