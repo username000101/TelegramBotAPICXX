@@ -16,20 +16,17 @@ void telegram::bot::events::EventsManager::processUpdate(const std::string& json
     for (auto& resultField : j) {
         if (resultField.contains("message")) {
             auto message = std::make_shared<types::Message>(internal::parseMessage(resultField["message"].dump()));
-            if (message->text.starts_with('/')) {
+            if (message->text.starts_with('/')) /* Command */ {
                 for (auto& handler : this->commandMessageHandlers_) {
-                    if (message->text == handler.second.first) {
-                        handler.second.second(message);
+                    if (message->text == handler.first) {
+                        handler.second(message);
                         return;
                     }
                 }
                 log(__FILE__, ":", __FUNCTION__, ":", __LINE__, ": Warning: The handler for command '", message->text, "' does not exists");
                 return;
-            } else {
-                for (auto& handler : this->anyMessageHandlers_) {
-                    handler.second(message);
-                    return;
-                }
+            } else /* Any message */ {
+                this->anyMessageHandler_(message);
             }
         } else {
             log(__FILE__, ":", __FUNCTION__, ":", __LINE__, ": Warning: TelegramBotAPICXX does not support handle the non-message updates yet");
