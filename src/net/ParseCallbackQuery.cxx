@@ -36,5 +36,8 @@ telegram::bot::types::CallbackQuery telegram::internal::parseCallbackQuery(const
     } else
         cq.gameShortName = j["game_short_name"].get<std::string>();
 
+    if (j.contains("from"))
+        cq.from = std::make_shared<bot::types::User>(internal::parseUser(j["from"].dump()));
+
     return cq;
 }

@@ -12,6 +12,7 @@
 #include <types/ChatFullInfo.hxx>
 #include <types/ChatPhoto.hxx>
 #include <events/EventsBroadcast.hxx>
+#include <types/InlineKeyboardMarkup.hxx>
 #include <types/ReplyParameters.hxx>
 #include <Logger.hxx>
 #include <types/Message.hxx>
@@ -38,8 +39,8 @@ namespace telegram {
             const std::string& getToken() { return this->token_; }
 
             types::ChatFullInfo::Ptr getChat(std::variant<std::string, std::int64_t> identificator);
-            types::Message::Ptr sendMessage(std::variant<std::string, std::int64_t> identificator, const std::string& text, bot::types::ReplyParameters::Ptr replyParameters = nullptr);
-            types::Message::Ptr editMessageText(std::variant<std::string, std::int64_t> identificator, std::int64_t messageId, const std::string& newText, types::ReplyParameters::Ptr replyParameters = nullptr);
+            types::Message::Ptr sendMessage(std::variant<std::string, std::int64_t> identificator, const std::string& text, bot::types::ReplyParameters::Ptr replyParameters = nullptr, bot::types::InlineKeyboardMarkup::Ptr replyMarkup = nullptr);
+            types::Message::Ptr editMessageText(std::variant<std::string, std::int64_t> identificator, std::int64_t messageId, const std::string& newText, types::ReplyParameters::Ptr replyParameters = nullptr, bot::types::InlineKeyboardMarkup::Ptr replyMarkup = nullptr);
 
             events::EventsManager& getEvents() { return this->eventsManager_; }
         private:

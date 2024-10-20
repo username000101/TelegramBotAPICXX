@@ -17,17 +17,16 @@ std::string telegram::internal::makeInlineKeyboardMarkup(telegram::bot::types::I
                 log(__FILE__, ":", __FUNCTION__, ":", __LINE__, ": Error: Failed to make InlineKeyboardButton: lineButton ptr is invalid");
                 continue;
             }
+            nlohmann::json button;
+            button["text"] = lineButton->text;
+            button["callback_data"] = lineButton->callbackData;
+            button["pay"] = lineButton->pay;
+            button["url"] = lineButton->url;
 
-            inlineKeyboard["inline_keyboard"][arrayIndex] = nlohmann::json::object();
-            inlineKeyboard["inline_keyboard"][arrayIndex][buttonIndex]["text"] = lineButton->text;
-            inlineKeyboard["inline_keyboard"][arrayIndex][buttonIndex]["data"] = lineButton->callbackData;
-            inlineKeyboard["inline_keyboard"][arrayIndex][buttonIndex]["pay"] = lineButton->pay;
-            inlineKeyboard["inline_keyboard"][arrayIndex][buttonIndex]["url"] = lineButton->url;
+            inlineKeyboard["inline_keyboard"][arrayIndex].push_back(button);
 
-            ++buttonIndex;
         }
         ++arrayIndex;
     }
-
-    return inlineKeyboard.dump(4);
+    return inlineKeyboard.dump();
 }

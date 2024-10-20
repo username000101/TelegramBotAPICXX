@@ -3,8 +3,6 @@
 telegram::bot::types::Message telegram::internal::parseMessage(const std::string& messageJSON) {
     nlohmann::json j = nlohmann::json::parse(messageJSON);
     bot::types::Message msg;
-    bot::types::Chat chat;
-    bot::types::User user;
 
     if (!j.contains("message_id")) {
         log(__FILE__, ":", __FUNCTION__, ":", __LINE__, ": Error: Failed to parse 'Message': response does not contains 'message_id'");
@@ -16,67 +14,6 @@ telegram::bot::types::Message telegram::internal::parseMessage(const std::string
         log(__FILE__, ":", __FUNCTION__, ":", __LINE__, ": Error: failed to parse 'Message': response does not contains 'from'");
         return msg;
     }
-    auto fromField = j["from"];
-
-    if (!fromField.contains("id")) {
-        log(__FILE__, ":", __FUNCTION__, ":", __LINE__, ": Error: failed to parse 'Message': response::from does not contains 'id'");
-        return msg;
-    }
-    user.id = fromField["id"].get<std::int64_t>();
-
-    if (!fromField.contains("is_bot")) {
-        log(__FILE__, ":", __FUNCTION__, ":", __LINE__, ": Error: failed to parse 'Message': response::from does not contains 'is_bot'");
-        return msg;
-    }
-    user.isBot = fromField["is_bot"].get<bool>();
-
-    if (!fromField.contains("first_name")) {
-        log(__FILE__, ":", __FUNCTION__, ":", __LINE__, ": Error: failed to parse 'Message': response::from does not contains 'first_name'");
-        return msg;
-    }
-    user.firstName = fromField["first_name"].get<std::string>();
-
-    if (!fromField.contains("last_name")) {
-        log(__FILE__, ":", __FUNCTION__, ":", __LINE__, ": Warning: In parse 'Message': response::from does not contains 'last_name' ==> !! this is not an error !! <==");
-    } else {
-        user.lastName = fromField["last_name"].get<std::string>();
-    }
-
-    if (!fromField.contains("username")) {
-        log(__FILE__, ":", __FUNCTION__, ":", __LINE__, ": Error: failed to parse 'Message': response::from does not contains 'username'");
-        return msg;
-    }
-    user.username = fromField["username"].get<std::string>();
-
-    if (!j.contains("chat")) {
-        log(__FILE__, ":", __FUNCTION__, ":", __LINE__, ": Error: failed to parse 'Message': response does not contains 'chat'");
-        return msg;
-    }
-    auto chatField = j["chat"];
-
-    if (!chatField.contains("id")) {
-        log(__FILE__, ":", __FUNCTION__, ":", __LINE__, ": Error: failed to parse 'Message': response::chat does not contains 'id'");
-        return msg;
-    }
-    chat.id = chatField["id"].get<std::int64_t>();
-
-    if (!chatField.contains("first_name")) {
-        log(__FILE__, ":", __FUNCTION__, ":", __LINE__, ": Error: failed to parse 'Message': response::chat does not contains 'first_name'");
-        return msg;
-    }
-    chat.firstName = chatField["first_name"].get<std::string>();
-
-    if (!chatField.contains("username")) {
-        log(__FILE__, ":", __FUNCTION__, ":", __LINE__, ": Error: failed to parse 'Message': response::chat does not contains 'username'");
-        return msg;
-    }
-    chat.username = chatField["username"].get<std::string>();
-
-    if (!chatField.contains("type")) {
-        log(__FILE__, ":", __FUNCTION__, ":", __LINE__, ": Error: failed to parse 'Message': response::chat does not contains 'type'");
-        return msg;
-    }
-    chat.type = chatField["type"].get<std::string>();
 
     if (!j.contains("date")) {
         log(__FILE__, ":", __FUNCTION__, ":", __LINE__, ": Error: failed to parse 'Message': response does not contains 'date'");
@@ -89,8 +26,10 @@ telegram::bot::types::Message telegram::internal::parseMessage(const std::string
         return msg;
     }
     msg.text = j["text"].get<std::string>();
-    msg.from = std::make_shared<bot::types::User>(user);
-    msg.chat = std::make_shared<bot::types::Chat>(chat);
+    if (j.contains("from"))
+        msg.from = std::make_shared<bot::types::User>(parseUser(j["from"].dump()));
+    if (j.contains("chat"))
+        msg.chat = std::make_shared<bot::types::Chat>(parseChat(j["chat"].dump()));
 
     return msg;
 }

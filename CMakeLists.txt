@@ -56,6 +56,9 @@ add_executable(MeetXTelegramAPI
     src/methods/EditMessageText.cxx
     include/types/CallbackQuery.hxx
     src/net/ParseCallbackQuery.cxx
+    src/events/OnCallbackQuery.cxx
+    src/net/ParseUser.cxx
+    src/net/ParseChat.cxx
 
 )
 
