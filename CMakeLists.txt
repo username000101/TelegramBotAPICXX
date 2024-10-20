@@ -13,7 +13,7 @@ include_directories(thirdParty/json/include)
 
 add_subdirectory(thirdParty/json)
 
-add_library(MeetXTelegramAPI SHARED
+add_executable(MeetXTelegramAPI
     include/net/CURLInteraction.hxx
     src/net/CURLInteraction.cxx
     include/types/ChatPhoto.hxx
@@ -54,6 +54,8 @@ add_library(MeetXTelegramAPI SHARED
     include/net/LongPoll.hxx
     src/net/LongPollStart.cxx
     src/methods/EditMessageText.cxx
+    include/types/CallbackQuery.hxx
+    src/net/ParseCallbackQuery.cxx
 
 )
 

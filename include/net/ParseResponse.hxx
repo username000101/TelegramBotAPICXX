@@ -7,6 +7,7 @@
 
 #include <types/Birthdate.hxx>
 #include <types/BusinessIntro.hxx>
+#include <types/CallbackQuery.hxx>
 #include <types/Chat.hxx>
 #include <types/ChatFullInfo.hxx>
 #include <types/ChatPhoto.hxx>
@@ -28,5 +29,7 @@ namespace telegram {
         bot::types::ChatFullInfo parseChatFullInfo(const std::string& chatFullInfoJSON);
         bot::types::Message parseMessage(const std::string& messageJSON);
         bot::types::User parseUser(const std::string& userJSON);
+        bot::types::CallbackQuery parseCallbackQuery(const std::string& cqueryJSON);
+
     }
 }

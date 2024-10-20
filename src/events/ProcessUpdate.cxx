@@ -43,6 +43,11 @@ void telegram::bot::events::EventsManager::processUpdate(const std::string& json
         } else if (resultField.contains("edited_channel_post")) /* Edited channel post */ {
             log(__FILE__, ":", __FUNCTION__, ":", __LINE__, ": Warning: TelegramBotAPICXX does not support handle the edited_channel_post updates yet");
             return;
+        } else if (resultField.contains("callback_query")) /* Callback query */  {
+            auto cQuery = std::make_shared<types::CallbackQuery>(internal::parseCallbackQuery(resultField["callback_query"].dump()));
+            if (this->callbackQueryHandler_)
+                this->callbackQueryHandler_(cQuery);
+            return;
         }
         // ...
     }
