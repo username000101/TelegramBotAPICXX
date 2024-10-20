@@ -54,7 +54,7 @@ add_library(MeetXTelegramAPI SHARED
     include/net/LongPoll.hxx
     src/net/LongPollStart.cxx
     src/methods/EditMessageText.cxx
-
+    include/types/File.hxx
 )
 
 if (DEFINED logging OR DEFINED LOGGING)
